@@ -61,7 +61,7 @@ const AuthLogin = () => {
             if (!response.data.success) {
               throw new Error('Authentication failed');
             }
-            setCookie('jwt', response.data.token, { path: '/' });
+            setCookie('jwt', response.data.token, { sameSite: 'None', secure: true });
             setTimeout(() => {
               console.log('redirect')
               return navigate("/");

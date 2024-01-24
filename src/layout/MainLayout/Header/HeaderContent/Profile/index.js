@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
-
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -18,7 +17,7 @@ import {
   Tabs,
   Typography
 } from '@mui/material';
-
+import { useCookies } from 'react-cookie';
 // project import
 import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
@@ -65,18 +64,19 @@ const Profile = () => {
   const [Data, setData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
-const UserData=async()=>{
-  try {
-    const response = await axios.get('http://localhost:4400/userData', { withCredentials: true });
-    setData(response.data);
-    console.log(response);
-    setLoading(false)
-  } catch (error) {
-    setError(error.message);
-  }
-
-}
+const [cookies,uesCookies]= useCookies('jwt')
+  const UserData = async () => {
+    await axios.post('http://localhost:4400/userData',{ credentials: true,token:cookies.jwt})
+      .then((response) => { 
+        setData(response.data);
+        console.log(response);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
+  
   useEffect( ()=>{
      UserData()
   },[])
@@ -160,9 +160,9 @@ const UserData=async()=>{
                           <Stack direction="row" spacing={1.25} alignItems="center">
                             <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                             <Stack>
-                              <Typography variant="h6">John Doe</Typography>
+                              <Typography variant="h6">{loading ? <CircularProgress/> : Data.name }</Typography>
                               <Typography variant="body2" color="textSecondary">
-                                UI/UX Designer
+                              {loading ? <CircularProgress/> : Data.email }
                               </Typography>
                             </Stack>
                           </Stack>

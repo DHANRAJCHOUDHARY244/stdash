@@ -2,7 +2,8 @@ import * as React from 'react';
 
 
 import {Typography,Button,CardMedia,CardActions,CardContent,Card,Rating} from '@mui/material';
-export default function CoursesCard() {
+export default function CoursesCard({name,instructor,description,rating}) {
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -12,18 +13,16 @@ export default function CoursesCard() {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+         {description}
         </Typography>
         <span>
-           <span style={{fontSize:'20px',fontWeight:'bold'}}>4.7</span> <Rating name="half-rating-read" defaultValue={4.6} precision={0.5} readOnly /><Typography fontSize={'15px'} gutterBottom variant="caption">(5000)</Typography>
+           <span style={{fontSize:'20px',fontWeight:'bold'}}>{rating}</span> <Rating name="half-rating-read" defaultValue={rating} precision={0.5} readOnly /><Typography fontSize={'15px'} gutterBottom variant="caption">(5000)</Typography>
         </span>
         <div>
           <span>Enrollment status</span>
-          <span style={{backgroundColor:'rgba(0,255,0,0.3)',padding:'5px',borderRadius:'10px'}}>Opened</span>
         </div>
         <div>
           <span style={{fontSize:'15px',fontWeight:'bold'}}>$567</span> <p style={{textDecoration: 'line-through',display:'inline'}}>$8999</p>

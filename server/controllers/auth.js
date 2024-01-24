@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
         if (!passwordMatch) {
           return res.status(401).json({ error: 'Incorrect password' });
         }
-        jwt.sign({ id:data.id,email:data.email,name:data.name}, secretKey, { expiresIn: '300s' }, (err, token) => {
+        jwt.sign({ id:data.id,email:data.email,name:data.name}, secretKey, { expiresIn: '1800s' }, (err, token) => {
           if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Internal Server Error' });

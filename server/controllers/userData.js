@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken');
 const secretKey = 'bjbhqebiubden';
 
-exports.getUserData=(req,res)=>{
-    const jwtCookie = req.cookies.jwt;
-
+exports.getUserData=async(req,res)=>{
+    const jwtCookie = req.body.token;
     if (!jwtCookie) {
         res.status(404).json({ error: 'Cookie not found' });
     } else {
